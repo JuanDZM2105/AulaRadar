@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    
+</head>
+<body>
+    {% extends 'base.html' %}
+      {% block content %}
+      <input type="text" placeholder="ingresa una descripcion de lo que buscas" size="35" />
+      {% for universidad in universidades %}
+      <div class="icons">
+        <h5 class="Number_ticket">{{ ticket.ticket_number }}</h5>
+        <b>Nombre de la universidad: </b><p class="name">{{ universidad.nombre }}</p>
+        <b>descripcion: </b><p class="call_time">{{ universidad.descripcion }}</p>
+        <b>ubicacion: </b><p class="time_elapse">{{ universidad.ubicacion }}</p>
+        
+     </div>
+
+     {% endfor %}
+      {% endblock content %}
+</body>
+</html>
