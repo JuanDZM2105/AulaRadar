@@ -7,17 +7,32 @@
 <body>
     {% extends 'base.html' %}
       {% block content %}
-      <input type="text" placeholder="ingresa una descripcion de lo que buscas" size="35" />
-      {% for universidad in universidades %}
-      <div class="icons">
-        <h5 class="Number_ticket">{{ ticket.ticket_number }}</h5>
-        <b>Nombre de la universidad: </b><p class="name">{{ universidad.nombre }}</p>
-        <b>descripcion: </b><p class="call_time">{{ universidad.descripcion }}</p>
-        <b>ubicacion: </b><p class="time_elapse">{{ universidad.ubicacion }}</p>
-        
-     </div>
+     <div class='container'>
+     
+      <form action="" >
+        <div class='mb-3'>
+            <label for='searchUniversity' class='form-label'>
+                Buscar Universidad:
+            </label>
+            <input type='text' class='form-control' name='searchUniversity'/>
+        </div>
+        <button type='submit' class='btn2 '>Search</button>
+       </form>
 
-     {% endfor %}
+       
+      
+          {% for universidad in universidades %}
+          
+            <b>Nombre de la universidad: </b>
+            <a href={% url "more_info" universidad.id_unico %} class="btn btn-primary">{{ universidad.nombre }}</a>
+            
+        {% endfor %}
+        
+        <br/>
+        <br/>
+          </div>
+
       {% endblock content %}
+
 </body>
 </html>

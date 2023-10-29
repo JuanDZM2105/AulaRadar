@@ -16,5 +16,18 @@ def exit(request):
  
 @login_required
 def main(request):
-    universidades = universidad.objects.all()
-    return render(request, 'main.html',{ 'universidades':universidades})
+    searchTerm=request.GET.get('searchUniversity')
+    if searchTerm:
+        universidades=universidad.objects.filter(nombre__icontains=searchTerm)
+        return render(request, 'main.html',{ 'searchTerm':searchTerm, 'universidades':universidades})
+    else:  
+        return render(request, 'main.html')
+
+def more_info(request,id_unico):
+    universidad1 = get_object_or_404(universidad, id_unico=id_unico)
+    
+
+   
+    
+
+    return render(request, 'more_info.html', {'universidad': universidad1})
