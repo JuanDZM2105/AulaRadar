@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    
+</head>
+<body>
+    {% extends 'base.html' %}
+      {% block content %}
+     <div class='container'>
+
+        
+     
+    <form action="">
+        <div class="mb-3">
+            <h3>seleccione una opcion</h3>
+            <select class="form-select form-select-sm" aria-label="Small select example" type="text" id="campo5" name="busqueda" required onchange="updateLabel()">
+                <option selected value="NULL"></option>
+                <option value="universidad" data-label="Buscar Universidad">universidad</option>
+                <option value="programa" data-label="Programa Académico">programa academico</option>
+            </select>
+
+            <input type="text" class="form-control" name="searchUniversity"  placeholder="" id="searchInput"/>
+        </div>
+        <button type="submit" class="btn2">Search</button>
+    </form>
+
+    <script>
+        function updateLabel() {
+            var select = document.getElementById("campo5");
+             
+            var input = document.getElementById("searchInput");
+            var selectedOption = select.options[select.selectedIndex];
+            if(selectedOption.value!="NULL"){
+                input.placeholder = "buscar " + selectedOption.value;
+            }
+                
+        }
+    </script>
+
+{% if aux == 1 %}
+    {% for objeto in busqueda %}
+        <b>Nombre de la universidad: </b>
+        <a href={% url "more_info" objeto.id_unico %} class="btn btn-primary">{{ objeto.nombre }}</a>
+    {% endfor %}
+{% else %}
+    {% for universidad, programa in busqueda %}
+        <!-- Aquí puedes acceder a los atributos de universidad y programa -->
+        <b>Universidad: </b>
+        <a href={% url "more_info" universidad.id_unico %} class="btn btn-primary">{{ universidad.nombre }}</a>
+        <b>Programa: </b>
+        <a href={% url "more_info_programa" programa.id_unico %} class="btn btn-primary">{{ programa.nombre }}</a>
+    {% endfor %}
+{% endif %}
+
+<br/>
+<br/>
+  </div>
+
+{% endblock content %}
+
+</body>
+</html>
