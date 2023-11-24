@@ -5,6 +5,11 @@
 <body>
     {% extends 'base.html' %}
       {% block content %}
+      <a href="javascript:history.back()" class="btn btn-primary">Volver a la página anterior</a>
+      <br>
+      <br>
+      <br>
+      <br>
      
         <b>Nombre del programa: </b><p>{{ programa.nombre }}</p>
         <b>descripcion: </b><p>{{ programa.descripcion }}</p>
@@ -20,10 +25,61 @@
       {% endfor %}
         </ul>
          
-        <a href="javascript:history.back()" class="btn btn-primary">Volver a la página anterior</a>
+         
           
-      </div>
+      
     </section>
+    <br>
+    <br>
+    <br>
+    
+    <style>
+      .comentario {
+          border: 1px solid #ccc;
+          padding: 10px;
+          margin-bottom: 10px;
+          border-radius: 5px;
+          background-color: #f9f9f9;  /* Nuevo */
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);  /* Nuevo */
+      }
+   
+     
+    
+   body {
+   background-color: rgb(255, 255, 255);
+   }
+  
+   
+   
+   .btn-primary {
+       background-color: #b3b3b3;
+       border-color: #b3b3b3;
+       color: black;
+   }
+  
+ 
+   </style>
+    <h3>Comentarios</h3>
+    <ul>
+      {% for comentario in comentarios %}
+          <li>
+              <p>{{ comentario.descripcion }}</p>
+              <p>Publicado por: {{ comentario.id_usuario.username }}</p>
+              <p>Fecha: {{ comentario.fecha_comentario }}</p>
+          </li>
+      {% empty %}
+          <li>No hay comentarios aún.</li>
+      {% endfor %}
+      </ul>
+  
+      <h3>Agregar un comentario</h3>
+      <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+    </div>
+  </section>
      
       {% endblock content %}
 

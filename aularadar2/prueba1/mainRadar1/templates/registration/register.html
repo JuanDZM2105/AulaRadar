@@ -1,26 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>register</title>
-   <link rel="stylesheet" type="text/css" href="css/style.css">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>register</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: 'Poppins', sans-serif;
+			background-color: rgb(12, 162, 231);
+		}
+		.card {
+			margin-top: 50px;
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+			margin: 0 auto;
+			width: 30rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.card-title {
+			font-size: 30px;
+			font-weight: 600;
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+		.card-body {
+			padding: 30px;
+		}
+		.form-control {
+			border-radius: 20px;
+			padding: 15px;
+			font-size: 16px;
+			font-weight: 600;
+			margin-bottom: 20px;
+			border: none;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		}
+		.btn-primary {
+			background-color: #1E90FF;
+			border: none;
+			border-radius: 20px;
+			padding: 10px 20px;
+			font-size: 16px;
+			font-weight: 600;
+			margin-top: 20px;
+			transition: all 0.3s ease 0s;
+		}
+		.btn-primary:hover {
+			background-color: #fff;
+			color: #1E90FF;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		}
+		.card-link {
+			font-size: 14px;
+			font-weight: 600;
+			color: #1E90FF;
+			margin-top: 20px;
+			display: block;
+			text-align: center;
+		}
+		.card-link:hover {
+			text-decoration: none;
+			 
+		}
+	</style>
 </head>
 <body>
-	{% load crispy_forms_tags %}	
-   
-	<br>
+	 
+	 {% load crispy_forms_tags %}   
+	
+	 <br>
 
-	<form action="" method="POST">
-		{% csrf_token %}
-		{{ form|crispy }}
-		<button type="submit">Register</button>
-		
-	</form>
-	
-	
+	 <form action="" method="post">
+		  {% csrf_token %}
+		<div class="card"> 
+			<div class="card-body">
+				<h5 class="card-title">Registro</h5>
+		  		{{ form|crispy }}
+				<a href="{% url 'login' %}" class="card-link">¿Ya tienes una cuenta? Inicia sesión</a>
+				<a href="javascript:history.back()" class="btn btn-sm btn-primary float-end">Volver</a>
+		  		<button type="submit" class="btn btn-sm btn-primary float-end">Register</button>
+		  	</div>
+		</div>
+	 </form>
+	 
+	 
 </body>
 </html>

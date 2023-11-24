@@ -10,47 +10,137 @@
      <div class='container'>
 
         
+
+        
+
+        
      
     <form action="">
-        <div class="mb-3">
-            <h3>seleccione una opcion</h3>
-            <select class="form-select form-select-sm" aria-label="Small select example" type="text" id="campo5" name="busqueda" required onchange="updateLabel()">
-                <option selected value="NULL"></option>
-                <option value="universidad" data-label="Buscar Universidad">universidad</option>
-                <option value="programa" data-label="Programa Académico">programa academico</option>
-            </select>
-
-            <input type="text" class="form-control" name="searchUniversity"  placeholder="" id="searchInput"/>
+        <div class="seleccion-linea">
+            <div class="mb-3">
+                <h6>universidad o programa academico:</h6>
+                 
+                <select class="form-select-form-select-sm"   aria-label="Small select example" type="text" id="campo5" name="busqueda" required onchange="updateLabel()" > 
+                    <option selected value="NULL"></option>
+                    <option value="universidad" data-label="Universidad">Universidad</option>
+                    <option value="programa" data-label="Programa Académico">Programa Académico</option>
+                </select>
+            </div>
+        
+            <div class="mb-3">
+                <h6>seleccione una ubicacion:</h6>
+                <select class="form-select-form-select-sm" aria-label="Small select example" type="text" id="campo6" name="ubicacion" required onchange="updateLabel()">
+                    <option selected value="NULL"></option>
+                    <option value="Medellín" data-label="Medellín"> Medellín </option>
+                    <option value="Cali" data-label="Cali">Cali</option>
+                </select>
+            </div>
+        
+            <div class="mb-3">
+                <h6>publica o privada:</h6>
+                <select class="form-select-form-select-sm" aria-label="Small select example" type="text" id="campo7" name="tipo" required onchange="updateLabel()">
+                    <option selected value="NULL"></option>
+                    <option value="publico" data-label="publica"> publica </option>
+                    <option value="privado" data-label="privada">privada</option>
+                </select>
+            </div>
         </div>
+         
+
+            <h6>ingrese el nombre e la institucion o programa(opcional):</h6>
+            <input type="text" class="form-control" name="searchUniversity"  placeholder="" id="searchInput" rows="3"/>
+        
         <button type="submit" class="btn2">Search</button>
     </form>
 
     <script>
         function updateLabel() {
-            var select = document.getElementById("campo5");
-             
             var input = document.getElementById("searchInput");
-            var selectedOption = select.options[select.selectedIndex];
-            if(selectedOption.value!="NULL"){
-                input.placeholder = "buscar " + selectedOption.value;
-            }
-                
+            var select1 = document.getElementById("campo5");
+            var select2 = document.getElementById("campo6");
+            var select3 = document.getElementById("campo7");
+            var selectedOption1 = select1.options[select1.selectedIndex];
+            var selectedOption2 = select2.options[select2.selectedIndex];
+            var selectedOption3 = select3.options[select3.selectedIndex];
+            var label1 = selectedOption1.value != "NULL" ? selectedOption1.getAttribute("data-label") : "cualquier universidad o programa";
+            var label2 = selectedOption2.value != "NULL" ? selectedOption2.getAttribute("data-label") : "cualquier ubicacion";
+            var label3 = selectedOption3.value != "NULL" ? selectedOption3.getAttribute("data-label") : "incluir publicas y privadas";
+            input.placeholder = "Buscar " + label1 + ", " + label2 + ", " + label3;
         }
     </script>
 
-{% if aux == 1 %}
-    {% for objeto in busqueda %}
-        <b>Nombre de la universidad: </b>
-        <a href={% url "more_info" objeto.id_unico %} class="btn btn-primary">{{ objeto.nombre }}</a>
-    {% endfor %}
+<style>
+     .form-select-form-select-sm   {
+        line-height: 30px;
+        }
+    .form-control   {
+            line-height: 10px;
+        }  
+
+    body {
+    background-color: rgb(255, 255, 255);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    a.programa {
+        color: black;
+    }
+    .btn-primary {
+        background-color: #b3b3b3;
+        border-color: #b3b3b3;
+        color: black;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    .seleccion-linea {
+    display: flex;
+    justify-content: space-between;
+    }
+    </style>
+    
+    {% if aux == 1 %}
+    <table>
+        <tr>
+            <th>Universidad</th>
+            <th>Tipo</th>
+            <th>Ubicación</th>
+        </tr>
+        {% for objeto in busqueda %}
+            <tr>
+                <td><a href={% url "more_info" objeto.id_unico %} class="btn btn-primary">{{ objeto.nombre }}</a></td>
+                <td>{{ objeto.tipo }}</td>
+                <td>{{ objeto.ubicacion }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 {% else %}
-    {% for universidad, programa in busqueda %}
-        <!-- Aquí puedes acceder a los atributos de universidad y programa -->
-        <b>Universidad: </b>
-        <a href={% url "more_info" universidad.id_unico %} class="btn btn-primary">{{ universidad.nombre }}</a>
-        <b>Programa: </b>
-        <a href={% url "more_info_programa" programa.id_unico %} class="btn btn-primary">{{ programa.nombre }}</a>
-    {% endfor %}
+    <table>
+        <tr>
+            <th>Universidad</th>
+            <th>Tipo</th>
+            <th>Ubicación</th>
+            <th>Programa</th>
+            <th>precio medio del semestre</th>
+            
+        </tr>
+        {% for universidad, programa in busqueda %}
+            <tr>
+                <td><a href={% url "more_info" universidad.id_unico %} class="btn btn-primary">{{ universidad.nombre }}</a></td>
+                <td>{{ universidad.tipo }}</td>
+                <td>{{ universidad.ubicacion }}</td>
+                <td><a href={% url "more_info_programa" programa.id_unico %} class="btn btn-primary programa">{{ programa.nombre }}</a></td>
+                <td>  {{ programa.precio_medio }} pesos colombianos. </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endif %}
 
 <br/>
